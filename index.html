@@ -1,135 +1,97 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="GB2312">
-<title>love_lxy</title>
-<link href="favicon.ico" rel="shortcut icon" />
-<style>
-body{
-  overflow: hidden;
-  margin: 0;
-}
-h1{
-  position: fixed;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  transform:translateY(-50%);
-  font-family: 'Love Ya Like A Sister', cursive;
-  font-size: 40px;
-  color: #c70012;
-  padding: 0 20px;
-}
-h1 span{
-    font-size:20px;
-}
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>Merry Christmas To LXY</title>
+	<!-- for dev -->
+	<!-- <link rel="stylesheet" href="src/css/christmas.css">
+	<link rel="stylesheet" href="src/css/animate.css"> -->
 
+	<!-- for pro -->
+	<link rel="stylesheet" href="dist/css/app.css">
+	<style>
+	body{
+		overflow: hidden;
+		margin: 0;
+	}
+	h1{
+		position: fixed;
+		top: 58%;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		transform:translateY(-50%);
+		font-family: system-ui;
+		font-size: 30px;
+		color: #3CB371;
+		padding: 0 20px;
+	}
+	h1 span{
+		font-size:20px;
+	}
+	</style>
 </head>
 <body>
-<h1 id="h1"></h1>
-<canvas></canvas> 
+	<section class="loading-mask">
+		<section class="loading">
+			<div class="progress">
+				<div class="progres-bar"><i class="icon-car"></i></div>
+			</div>
+			<p class="loading-text">努力加载中...</p>
+		</section>
+		<!-- end loading -->
+		<a href="javascript:;" class="playBgMusic animate-notifylight" id="j-playBgMusic">进入</a>
+	</section>
 
-<script>
-var canvas = document.querySelector("canvas"),
-  ctx = canvas.getContext("2d");
+	<section class="page out">
+		<section class="content">
+			<!-- animate class bigSnow-smallPos -->
+			<section class="bigSnow-panel j-bigSnow animate-bigSnowRotate transition">
+				<i class="img-bigSnow snow1 animate-bigSnow1Change transition"></i>
+				<i class="img-bigSnow snow2 animate-bigSnow2Change transition"></i>
+				<i class="img-bigSnow snow3 animate-bigSnow3Change transition"></i>
+			</section>
+			<!-- end bigSnow-panel -->
 
-var ww,wh;
+			<div class="banner-panel j-banner opacity0 animated">
+				<!-- animate class show -->
+				<span class="textMask mask1 j-textmask1"><i class="transition"></i></span>
+				<span class="textMask mask2 j-textmask2"><i class="transition"></i></span>
+				<span class="textMask mask3 j-textmask3"><i class="transition"></i></span>
+				<i class="img-glove animate-gloveSwing"></i>
+			</div>
 
-function onResize(){
-  ww = canvas.width = window.innerWidth;
-  wh = canvas.height = window.innerHeight;
-}
+			<i class="img-tree left opacity0 transition tn j-tree-left"></i>
+			<i class="img-tree right opacity0 transition tn j-tree-right"></i>
+			<!-- end trees -->
 
-ctx.strokeStyle = "red";
-ctx.shadowBlur = 25;
-ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
+			<section class="bag-panel opacity0 animated j-bag">
+				<i class="img-gift gift1 j-gift1 opacity0 animated"></i>
+				<i class="img-gift gift2 j-gift2 opacity0 animated"></i>
+				<i class="img-gift gift3 j-gift3 opacity0 animated"></i>
+			</section>
+			<!-- end bag-panel -->
 
-var precision = 100;
-var hearts = [];
-var mouseMoved = false;
-function onMove(e){
-  mouseMoved = true;
-  if(e.type === "touchmove"){
-    hearts.push(new Heart(e.touches[0].clientX, e.touches[0].clientY));
-    hearts.push(new Heart(e.touches[0].clientX, e.touches[0].clientY));
-  }
-  else{
-    hearts.push(new Heart(e.clientX, e.clientY));
-    hearts.push(new Heart(e.clientX, e.clientY));
-  }
-}
+			<i class="img-stars opacity0 animated j-stars"></i>
+			<i class="content-bg opacity0 animated j-bottomBg"></i>
+		</section>
+		<!-- end content -->
+	</section>
 
-var Heart = function(x,y){
-  this.x = x || Math.random()*ww;
-  this.y = y || Math.random()*wh;
-  this.size = Math.random()*2 + 1;
-  this.shadowBlur = Math.random() * 10;
-  this.speedX = (Math.random()+0.2-0.6) * 8;
-  this.speedY = (Math.random()+0.2-0.6) * 8;
-  this.speedSize = Math.random()*0.05 + 0.01;
-  this.opacity = 1;
-  this.vertices = [];
-  for (var i = 0; i < precision; i++) {
-    var step = (i / precision - 0.5) * (Math.PI * 2);
-    var vector = {
-      x : (15 * Math.pow(Math.sin(step), 3)),
-      y : -(13 * Math.cos(step) - 5 * Math.cos(2 * step) - 2 * Math.cos(3 * step) - Math.cos(4 * step)) 
-    }
-    this.vertices.push(vector);
-  }
-}
+	<audio id="bgmusci" preload="load" loop="loop"><source src="main.mp3" type="audio/mpeg" /></audio>
 
-Heart.prototype.draw = function(){
-  this.size -= this.speedSize;
-  this.x += this.speedX;
-  this.y += this.speedY;
-  ctx.save();
-  ctx.translate(-1000,this.y);
-  ctx.scale(this.size, this.size);
-  ctx.beginPath();
-  for (var i = 0; i < precision; i++) {
-    var vector = this.vertices[i];
-    ctx.lineTo(vector.x, vector.y);
-  }
-  ctx.globalAlpha = this.size;
-  ctx.shadowBlur = Math.round((3 - this.size) * 10);
-  ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
-  ctx.shadowOffsetX = this.x + 1000;
-  ctx.globalCompositeOperation = "screen"
-  ctx.closePath();
-  ctx.fill()
-  ctx.restore();
-};
+	<h1 id="h1"></h1>
+	<canvas></canvas> 
 
+	<script src="dist/js/app.js"></script>
+	<script>
+	ISPRO=true;
 
-function render(a){
-  requestAnimationFrame(render);
-
-  hearts.push(new Heart())
-  ctx.clearRect(0,0,ww,wh);
-  for (var i = 0; i < hearts.length; i++) {
-    hearts[i].draw();
-    if(hearts[i].size <= 0){
-      hearts.splice(i,1);
-      i--;
-    }
-  }
-}
-
-
-onResize();
-window.addEventListener("mousemove", onMove);
-window.addEventListener("touchmove", onMove);
-window.addEventListener("resize", onResize);
-requestAnimationFrame(render);
-
-window.onload=function starttime(){
-        time(h1,'2020/8/12');                           // 在一起的时间
-        ptimer = setTimeout(starttime,1000);            // 添加计时器
-}
-
+	window.onload=function starttime(){
+	        time(h1,'2020/8/12');                           // 在一起的时间
+	        ptimer = setTimeout(starttime,1000);            // 添加计时器
+	}
     function time(obj,futimg){
         var nowtime = new Date().getTime();             // 现在时间转换为时间戳
         var futruetime =  new Date(futimg).getTime();   // 未来时间转换为时间戳
@@ -139,13 +101,10 @@ window.onload=function starttime(){
         var hour = parseInt(time/3600)-24*day;          // 小时 60*60 总小时数-过去的小时数=现在的小时数 
         var minute = parseInt(time%3600/60);            // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
         var second = parseInt(time%60);                 // 以60秒为一整份 取余 剩下秒数
-//              console.log(hour+":"+minute+":"+second)
-//              alert(hour)
-        obj.innerHTML="宝贝<br>咱俩在一起的时间已经：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"了<br><span>积攒了好久的温柔与浪漫，想要一次性都给你。<br>不管面临多大的压力,不管前面的路如何崎岖.<br>不管经历过什么,我仍坚信最浪漫的事就是和你一起慢慢变老.<br>相信中间的计时器,将永远继续下去,直至数据溢出.</span>"
+        obj.innerHTML="<br>我们在一起的时间：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒<br><span>这里也要有节日的气氛<br>今年新冠疫情，圣诞老人挡在海关进不来，委托我给你传达:<br>宝贝，圣诞快乐哟~</span>"
 
         return true;
     }
-</script>
-
+	</script>
 </body>
 </html>
