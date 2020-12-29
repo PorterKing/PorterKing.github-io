@@ -1,109 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-	<title>Merry Christmas To LXY</title>
-	<!-- for dev -->
-	<!-- <link rel="stylesheet" href="src/css/christmas.css">
-	<link rel="stylesheet" href="src/css/animate.css"> -->
-
-	<!-- for pro -->
-	<link rel="stylesheet" href="dist/css/app.css">
-	<style>
-	body{
-		overflow: hidden;
-		margin: 0;
-	}
-	h1{
-		position: fixed;
-		top: 58%;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		transform:translateY(-50%);
-		font-family: system-ui;
-		font-size: 30px;
-		color: #3CB371;
-	}
-	h1 span{
-		font-size:20px;
-	}
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>LXY</title>
+	<link rel="icon" href="./img/logo_32.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="./img/logo_32.ico" type="image/x-icon">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jscex.min.js"></script>
+	<script type="text/javascript" src="js/jscex-parser.js"></script>
+	<script type="text/javascript" src="js/jscex-jit.js"></script>
+	<script type="text/javascript" src="js/jscex-builderbase.min.js"></script>
+	<script type="text/javascript" src="js/jscex-async.min.js"></script>
+	<script type="text/javascript" src="js/jscex-async-powerpack.min.js"></script>
+	<script type="text/javascript" src="js/functions.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/love.js" charset="utf-8"></script>
+    <style type="text/css">
+		body{margin:0;padding:0;background:#ffe;font-size:14px;font-family:'微软雅黑','宋体',sans-serif;color:#231F20;overflow:auto}
+		a{color:#000;font-size:14px;}
+		#main{width:100%;}
+		#wrap{position:relative;margin:0 auto;width:1100px;height:680px;margin-top:10px;}
+		#text{width:400px;height:425px;left:60px;top:80px;position:absolute;}
+		#code{display:none;font-size:16px;}
+		#clock-box{position:absolute;left:60px;top:550px;font-size:28px;display:none;}
+		#clock-box a{font-size:28px;text-decoration:none;}
+		#clock{margin-left:48px;}
+		#clock .digit{font-size:64px;}
+		#canvas{margin:0 auto;width:1100px;height:680px;}
+		#error{margin:0 auto;text-align:center;margin-top:60px;display:none;}
+		.hand{cursor:pointer;}
+		.say{margin-left:5px;}
+		.space{margin-right:150px;}
 	</style>
 </head>
 <body>
-	<section class="loading-mask">
-		<section class="loading">
-			<div class="progress">
-				<div class="progres-bar"><i class="icon-car"></i></div>
+	<audio autoplay="autoplay" loop="loop" preload="auto" ><source src="http://music.163.com/song/media/outer/url?id=1381755293.mp3" type="audio/mpeg"></audio>
+	<div id="main">
+            <div id="wrap">
+               <div id="text">
+                    <div id="code">                 
+                    <span class="say">宝贝，我会牵着你的手，走到满头白发的那一天，</span><br>
+                    <span class="say">我会守护你生命里的精彩，并陪伴你一路精彩下去。</span><br>
+                    <span class="say">你的幸福快乐，是我一生的追求。</span><br>
+                    <span class="say">每一天带着笑脸，和你说早安，</span><br>
+                    <span class="say">每一晚与你道声晚安再入梦乡，</span><br>
+                    <span class="say">我会带你去所有你想去的地方，</span><br>
+                    <span class="say">陪你闹看你笑</span><br>
+                    <span class="say">历经你生命中所有的点点滴滴。</span><br>
+                    <span class="say">我期待这一生与你一起走过，</span><br>
+                    <span class="say">我期待与你慢慢变老</span><br>
+                    <span class="say">等我们老到哪儿也去不了，</span><br>
+                    <span class="say">还能满载着一生的幸福快乐 ！</span><br>
+                    <br>
+                    <span class="say">我会为我们的未来撑起一片天空，</span><br>
+                     <span class="say">为我们的将来担负起一生的责任，</span><br>
+                      <span class="say">愿意为你去做每一件能让你开心快乐的事。</span><br>
+                       <span class="say">所有我们经历的点点滴滴，</span><br>
+                        <span class="say">都是我们一辈子最美的回忆。</span><br>
+                         <span class="say">我愿意爱你直到老去！</span><br>
+                   <br>
+                    <span class="say"><span class="space"></span> -- Yours,爱人</span>
+                    </div>
+                </div>
+			<div id="clock-box">
+				<span><font color="#666666">宝贝，我们已经在一起</font></span>
+				<div id="clock"></div>
 			</div>
-			<p class="loading-text">努力加载中...</p>
-		</section>
-		<!-- end loading -->
-		<a href="javascript:;" class="playBgMusic animate-notifylight" id="j-playBgMusic">进入</a>
-	</section>
-
-	<section class="page out">
-		<section class="content">
-			<!-- animate class bigSnow-smallPos -->
-			<section class="bigSnow-panel j-bigSnow animate-bigSnowRotate transition">
-				<i class="img-bigSnow snow1 animate-bigSnow1Change transition"></i>
-				<i class="img-bigSnow snow2 animate-bigSnow2Change transition"></i>
-				<i class="img-bigSnow snow3 animate-bigSnow3Change transition"></i>
-			</section>
-			<!-- end bigSnow-panel -->
-
-			<div class="banner-panel j-banner opacity0 animated">
-				<!-- animate class show -->
-				<span class="textMask mask1 j-textmask1"><i class="transition"></i></span>
-				<span class="textMask mask2 j-textmask2"><i class="transition"></i></span>
-				<span class="textMask mask3 j-textmask3"><i class="transition"></i></span>
-				<i class="img-glove animate-gloveSwing"></i>
-			</div>
-
-			<i class="img-tree left opacity0 transition tn j-tree-left"></i>
-			<i class="img-tree right opacity0 transition tn j-tree-right"></i>
-			<!-- end trees -->
-
-			<section class="bag-panel opacity0 animated j-bag">
-				<i class="img-gift gift1 j-gift1 opacity0 animated"></i>
-				<i class="img-gift gift2 j-gift2 opacity0 animated"></i>
-				<i class="img-gift gift3 j-gift3 opacity0 animated"></i>
-			</section>
-			<!-- end bag-panel -->
-
-			<i class="img-stars opacity0 animated j-stars"></i>
-			<i class="content-bg opacity0 animated j-bottomBg"></i>
-		</section>
-		<!-- end content -->
-	</section>
-
-	<audio id="bgmusci" preload="load" loop="loop"><source src="main.mp3" type="audio/mpeg" /></audio>
-
-	<h1 id="h1"></h1>
-	<canvas></canvas> 
-
-	<script src="dist/js/app.js"></script>
+			<canvas id="canvas" width="1100" height="680"></canvas>
+		</div>
+	</div>
 	<script>
-	ISPRO=true;
-
-	window.onload=function starttime(){
-	        time(h1,'2020/8/12');                           // 在一起的时间
-	        ptimer = setTimeout(starttime,1000);            // 添加计时器
-	}
-    function time(obj,futimg){
-        var nowtime = new Date().getTime();             // 现在时间转换为时间戳
-        var futruetime =  new Date(futimg).getTime();   // 未来时间转换为时间戳
-        var msec = nowtime-futruetime;                  // 毫秒 未来时间-现在时间
-        var time = (msec/1000);                         // 毫秒/1000
-        var day = parseInt(time/86400);                 // 天  24*60*60*1000 
-        var hour = parseInt(time/3600)-24*day;          // 小时 60*60 总小时数-过去的小时数=现在的小时数 
-        var minute = parseInt(time%3600/60);            // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
-        var second = parseInt(time%60);                 // 以60秒为一整份 取余 剩下秒数
-        obj.innerHTML="<br>我们在一起的时间：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒<br><span>这里也要有节日的气氛<br>今年新冠疫情，圣诞老人挡在海关进不来，委托我给你传达:<br>宝贝，圣诞快乐哟~</span>"
-
-        return true;
-    }
+	var year = 2020;
+    var month = 8;
+    var day = 12;
+    var hour = 14;
+    var minute = 38;
+    var second = 00;
+    var auto_load = true;
+    var auto_load_delay = 1000;
+	(
+	function() {
+    var canvas = $('#canvas');
+	var bgm = document.getElementById('bgm');
+    var width = canvas.width();
+    var height = canvas.height();
+    canvas.attr("width", width);
+    canvas.attr("height", height);
+    var opts = {
+        seed: {
+            x: width / 2 - 20,
+            color: "rgb(190, 26, 37)",
+            scale: 2
+        },
+        branch: [[535, 680, 570, 250, 500, 200, 30, 100, [[540, 500, 455, 417, 340, 400, 13, 100, [[450, 435, 434, 430, 394, 395, 2, 40]]], [550, 445, 600, 356, 680, 345, 12, 100, [[578, 400, 648, 409, 661, 426, 3, 80]]], [539, 281, 537, 248, 534, 217, 3, 40], [546, 397, 413, 247, 328, 244, 9, 80, [[427, 286, 383, 253, 371, 205, 2, 40], [498, 345, 435, 315, 395, 330, 4, 60]]], [546, 357, 608, 252, 678, 221, 6, 100, [[590, 293, 646, 277, 648, 271, 2, 80]]]]]],
+        bloom: {
+            num: 700,
+            width: 1080,
+            height: 650,
+        },
+        footer: {
+            width: 1200,
+            height: 5,
+            speed: 10,
+        }
+    };
+    var tree = new Tree(canvas[0], width, height, opts);
+    var seed = tree.seed;
+    var foot = tree.footer;
+    var hold = 1;
+ 
+    canvas.click(function(e) {
+        var offset = canvas.offset(),
+        x,
+        y;
+        x = e.pageX - offset.left;
+        y = e.pageY - offset.top;
+        if (seed.hover(x, y)) {
+            hold = 0;
+            canvas.unbind("click");
+            canvas.unbind("mousemove");
+            canvas.removeClass('hand');
+			bgm.play();
+        }
+    }).mousemove(function(e) {
+        var offset = canvas.offset(),
+        x,
+        y;
+        x = e.pageX - offset.left;
+        y = e.pageY - offset.top;
+        canvas.toggleClass('hand', seed.hover(x, y));
+    });
+    var seedAnimate = eval(Jscex.compile("async",
+    function() {
+        seed.draw();
+        if(auto_load){
+            hold = 0;
+        }
+        while (hold) {
+            $await(Jscex.Async.sleep(10));
+        }
+        while (seed.canScale()) {
+            seed.scale(0.95);
+            $await(Jscex.Async.sleep(10));
+        }
+        while (seed.canMove()) {
+            seed.move(0, 2);
+            foot.draw();
+            $await(Jscex.Async.sleep(10));
+        }
+    }));
+    var growAnimate = eval(Jscex.compile("async",
+    function() {
+        do {
+            tree.grow();
+            $await(Jscex.Async.sleep(10));
+        } while ( tree . canGrow ());
+    }));
+    var flowAnimate = eval(Jscex.compile("async",
+    function() {
+        do {
+            tree.flower(2);
+            $await(Jscex.Async.sleep(10));
+        } while ( tree . canFlower ());
+    }));
+    var moveAnimate = eval(Jscex.compile("async",
+    function() {
+        tree.snapshot("p1", 240, 0, 610, 680);
+        while (tree.move("p1", 500, 0)) {
+            foot.draw();
+            $await(Jscex.Async.sleep(10));
+        }
+        foot.draw();
+        tree.snapshot("p2", 500, 0, 610, 680);
+        canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+        canvas.css("background", "#ffe");
+        $await(Jscex.Async.sleep(300));
+        canvas.css("background", "none");
+    }));
+    var jumpAnimate = eval(Jscex.compile("async",
+    function() {
+        var ctx = tree.ctx;
+        while (true) {
+            tree.ctx.clearRect(0, 0, width, height);
+            tree.jump();
+            foot.draw();
+            $await(Jscex.Async.sleep(25));
+        }
+    }));
+    var textAnimate = eval(Jscex.compile("async",
+    function() {
+        var together = new Date();
+        together.setFullYear(year, (month - 1), (day - 1));
+        together.setHours(hour);
+        together.setMinutes(minute);
+        together.setSeconds(second);
+        together.setMilliseconds(0);
+        $("#code").show().typewriter();
+        $("#clock-box").fadeIn(500);
+        while (true) {
+            timeElapse(together);
+            $await(Jscex.Async.sleep(1000));
+        }
+    }));
+	document.addEventListener('DOMContentLoaded', function () {
+	  function audioAutoPlay() {
+		  bgm.play();
+		  document.addEventListener("WeixinJSBridgeReady", function () {
+			  bgm.play();
+		  }, false);
+	  }
+	  audioAutoPlay();
+	 });
+    var runAsync = eval(Jscex.compile("async",
+    function() {
+        $await(seedAnimate());
+        $await(growAnimate());
+        $await(flowAnimate());
+        $await(moveAnimate());
+        textAnimate().start();
+        $await(jumpAnimate());
+    }));
+    runAsync().start();
+})();
 	</script>
 </body>
 </html>
+
+
